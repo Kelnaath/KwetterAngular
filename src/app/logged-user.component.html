@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Test REST!</h1>
+<button (click)="dummyLogin()">Get admin user</button>
+<div *ngIf="loggedUser">
+  {{loggedUser.id}}
+  {{loggedUser.name}}
+  {{loggedUser.username}}
+
+</div>
+
+</body>
+</html>
