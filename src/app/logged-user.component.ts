@@ -3,7 +3,6 @@
  */
 
 import {Component} from "@angular/core";
-import { HttpModule }    from '@angular/http';
 
 import {User} from "./User";
 import {UserService} from "./user.service";
@@ -25,4 +24,6 @@ export class LoggedUser{
   dummyLogin() : void{
     this.userService.getUser().subscribe(user => this.loggedUser = user);
   }
+
+
 }

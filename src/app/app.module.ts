@@ -7,11 +7,13 @@ import {HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {LoggedUser} from "./logged-user.component";
 import {UserService} from "./user.service";
+import {LoginComponent} from "./login.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoggedUser
+    LoggedUser,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
