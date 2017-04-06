@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  Welcome {{user.username}}!
+  <img src={{user.profile.imgUrl}}>
+  <a [routerLink]="['/user-profile', user.username]">Profile</a>
+</div>
+</body>
+</html>

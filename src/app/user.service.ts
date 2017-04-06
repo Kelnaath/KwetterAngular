@@ -55,6 +55,20 @@ export class UserService{
     return this.http.get('http://localhost:8080/kwetter/api/kweets/user/' + userId, options).map((res:Response) => res.json());
   }
 
+  followUser(baseUserId : number, followingId : number) : Observable<User>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log("following user");
+    return this.http.put('http://localhost:8080/kwetter/api/users/follow/'+baseUserId + "/" + followingId, options).map((res:Response) => res.json());
+  }
+
+  unfollowUser(baseUserId : number, followingId : number) : Observable<User>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log("unfollowing user");
+    return this.http.put('http://localhost:8080/kwetter/api/users/unfollow/'+baseUserId + "/" + followingId, options).map((res:Response) => res.json());
+  }
+
 /*
   getUserList(userIds : number[]): User[]{
     let returnUsers : User[] = [];

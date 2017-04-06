@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import {UserService} from "./user.service";
 import {LoginComponent} from "./login.component";
 import {AuthService} from "./auth.service";
-import {UserProfile} from "./user.profile.component";
 import {RouterModule} from "@angular/router";
+import {UserNavbar} from "./user-navbar.component";
+import {UserProfile} from "./user.profile.component";
 
 export const routes = [
   {path: 'login', component: LoginComponent},
@@ -22,7 +23,8 @@ export const routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    UserProfile
+    UserProfile,
+    UserNavbar
   ],
   imports: [
     BrowserModule,

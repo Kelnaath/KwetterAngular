@@ -7,8 +7,8 @@
 <body>
 <div>
   <div *ngIf="user">
-    Welcome {{getLoggedUser().username}}!
-    <img src={{user.profile.imgUrl}}>
+    <user-navbar></user-navbar>
+
 
     <h2>Profile</h2>
     Name: {{user.name}}
@@ -16,6 +16,14 @@
     Biography: {{user.profile.bio}}
     Residence: {{user.profile.residence}}
     Website: {{user.profile.website}}
+
+    <div *ngIf="canFollow === true">
+      <a (click)="followUser(user)">Follow</a>
+    </div>
+
+    <div *ngIf="canUnfollow === true">
+      <a (click)="unfollowUser(user)">Unfollow</a>
+    </div>
 
     <div *ngIf="following">
       <h2>Following</h2>

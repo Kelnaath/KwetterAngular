@@ -34,7 +34,7 @@ export class LoginComponent {
   goToProfile(){
     if(this.user != null){
       this.authService.loggedUser = this.user;
-      this.router.navigate(['./user-profile', this.user.name]);
+      this.router.navigate(['./user-profile', this.user.username]);
     }
   }
 }
