@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+  <div *ngIf="user">
+    Welcome {{user.username}}!
+    <img src={{user.profile.imgUrl}}>
+
+    <h2>Profile</h2>
+    Name: {{user.name}}
+    Username: {{user.username}}
+    Biography: {{user.profile.bio}}
+    Residence: {{user.profile.residence}}
+    Website: {{user.profile.website}}
+
+    <div *ngIf="following">
+      <h2>Following</h2>
+      <ul>
+        <li *ngFor="let f of following">{{f.username}}</li>
+      </ul>
+    </div>
+
+    <div *ngIf="followers">
+      <h2>Followers</h2>
+      <ul>
+        <li *ngFor="let f of followers">{{f.username}}</li>
+      </ul>
+    </div>
+
+    <div *ngIf="kweets">
+      <h2>Kweets</h2>
+      <ul>
+        <li *ngFor="let kweet of kweets">{{kweet.message}}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

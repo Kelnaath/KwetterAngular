@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
-<button (click)="onSubmit('maikel', 'henk')">Get admin user</button>
+<div>
+  <input [(ngModel)]="username" placeholder="username">
+  <input [(ngModel)]="password" placeholder="password">
+</div>
+<button (click)="onSubmit(username, password)">Login</button>
+
 </body>
 </html>

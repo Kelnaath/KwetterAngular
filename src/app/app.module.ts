@@ -5,24 +5,34 @@ import { FormsModule } from '@angular/forms';
 import {HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {LoggedUser} from "./logged-user.component";
 import {UserService} from "./user.service";
 import {LoginComponent} from "./login.component";
+import {AuthService} from "./auth.service";
+import {UserProfile} from "./user.profile.component";
+import {RouterModule} from "@angular/router";
+
+export const routes = [
+  {path: 'login', component: LoginComponent},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'user-profile/:username', component: UserProfile}
+  //{path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard]}
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoggedUser,
-    LoginComponent
+    LoginComponent,
+    UserProfile
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     JsonpModule,
-    CommonModule
+    CommonModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [UserService],
+  providers: [UserService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
