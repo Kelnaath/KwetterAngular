@@ -32,7 +32,7 @@ export const routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthService],
+  providers: [UserService, AuthService, LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

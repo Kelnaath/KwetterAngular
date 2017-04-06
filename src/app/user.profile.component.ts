@@ -8,10 +8,13 @@ import {UserService} from "./user.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Kweet} from "./Kweet";
 import {Observable} from "rxjs";
+import {LoginComponent} from "./login.component";
+import {AuthService} from "./auth.service";
 
 @Component({
   selector: 'user-profile',
-  templateUrl: `./user.profile.component.html`
+  templateUrl: `./user.profile.component.html`,
+  styleUrls:['./user.profile.component.css']
 })
 
 export class UserProfile implements OnInit{
@@ -21,10 +24,15 @@ export class UserProfile implements OnInit{
   following : User[] = [];
   kweets : Kweet[] = [];
 
-  constructor(private userService:UserService, private route: ActivatedRoute){}
+  constructor(private userService:UserService, private route: ActivatedRoute, private login: AuthService){}
 
   ngOnInit(): void {
     this.getUserDetails();
+  }
+
+  gotoUser(username){
+    this.userService.gotoUser(username);
+    console.log("Currently logged user = " + this.login.loggedUser.username);
   }
 
   getUserDetails(){
@@ -38,5 +46,9 @@ export class UserProfile implements OnInit{
         this.userService.getUserKweetsList(this.user.id).subscribe(kweets => this.kweets = kweets);
       })
     });
+  }
+
+  getLoggedUser(){
+    return this.login.loggedUser;
   }
 }

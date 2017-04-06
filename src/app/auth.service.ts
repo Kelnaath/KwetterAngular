@@ -13,6 +13,7 @@ export class AuthService{
 
   private baseUrl = 'http://localhost:8080/kwetter/api';
   private loggedIn = false;
+  public loggedUser : User;
   private token : string;
 
   constructor(private http: Http, private userService: UserService){}
@@ -50,6 +51,5 @@ export class AuthService{
 
   tempLogin(username, password): Observable<User>{
     return this.userService.getUser(username);
-
   }
 }

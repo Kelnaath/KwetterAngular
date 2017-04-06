@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {Kweet} from "./Kweet";
+import {Router} from "@angular/router";
 
 
 @Injectable()
@@ -19,8 +20,14 @@ export class UserService{
   private loggedIn = false;
   private token : string;
 
-  constructor(private http: Http){
+  constructor(private http: Http, private router: Router){
     this.loggedIn = !!localStorage.getItem('token');
+  }
+
+  gotoUser(username){
+    this.getUser(username).subscribe(user =>{
+      this.router.navigate(['./user-profile', user.username]);
+    });
   }
 
   getUser(username) : Observable<User>{
