@@ -11,6 +11,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {Kweet} from "./Kweet";
 import {Router} from "@angular/router";
+import {Profile} from "./Profile";
 
 
 @Injectable()
@@ -69,21 +70,11 @@ export class UserService{
     return this.http.put('http://localhost:8080/kwetter/api/users/unfollow/'+baseUserId + "/" + followingId, options).map((res:Response) => res.json());
   }
 
-/*
-  getUserList(userIds : number[]): User[]{
-    let returnUsers : User[] = [];
+  updateProfile(profile : Profile) : Observable<User>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log("updating user profile");
+    return this.http.put('http://localhost:8080/kwetter/api/users/profile/' + profile.owner,JSON.stringify(profile), options).map((res:Response) => res.json());
 
-    for(let userId of userIds){
-      //let user : User;
-
-      let user = this.getUserById(userId);
-      console.log(user);
-
-    }
-
-    console.log(returnUsers);
-
-    return Observable.from(returnUsers);
   }
-  */
 }
