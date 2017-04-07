@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Followers</title>
+</head>
+<body>
+<div *ngIf="user">
+  <div *ngIf="followers">
+    <h2>Followers</h2>
+    <ul class="profile">
+      <li class="profile" *ngFor="let f of followers" (click)="gotoUser(f.username)">
+        <span class="badge">{{f.username}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

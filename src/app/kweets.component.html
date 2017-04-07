@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kweets</title>
+</head>
+<body>
+<div *ngIf="kweets">
+  <h2>Kweets</h2>
+  <ul>
+    <li *ngFor="let kweet of kweets">{{kweet.message}}</li>
+  </ul>
+</div>
+</body>
+</html>

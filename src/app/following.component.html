@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Following</title>
+</head>
+<body>
+<div *ngIf="user">
+  <div *ngIf="user.following">
+    <h2>Following</h2>
+    <ul class="profile">
+      <li class="profile" *ngFor="let f of following" (click)="gotoUser(f.username)">
+        <span class="badge">{{f.username}}</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>

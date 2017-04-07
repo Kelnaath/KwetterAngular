@@ -11,7 +11,7 @@
 
     <!--PROFILE-->
     <div>
-      <h3>Profile</h3>
+      <h3>Profile of {{user.username}}</h3>
       <form>
         <div>
           <label for="biography">Biography</label>
@@ -35,14 +35,7 @@
       </form>
     </div>
 
-
-    <h2>Profile</h2>
-    Name: {{user.name}}
-    Username: {{user.username}}
-    Biography: {{user.profile.bio}}
-    Residence: {{user.profile.residence}}
-    Website: {{user.profile.website}}
-
+    <!--FOLLOW/UNFOLLOW-->
     <div *ngIf="canFollow === true">
       <a (click)="followUser(user)">Follow</a>
     </div>
@@ -51,33 +44,21 @@
       <a (click)="unfollowUser(user)">Unfollow</a>
     </div>
 
-    <div *ngIf="following">
-      <h2>Following</h2>
-      <ul class="profile">
-        <li class="profile" *ngFor="let f of following" (click)="gotoUser(f.username)">
-          <span class="badge">{{f.username}}</span>
-        </li>
-      </ul>
-      <div *ngIf="getLoggedUser().username === user.username">
-        EditableTest
-      </div>
-    </div>
+    <a [routerLink]="['following']">Following</a>
+    <a [routerLink]="['followers']">Followers</a>
+    <a [routerLink]="['kweets']">Kweets</a>
 
-    <div *ngIf="followers">
-      <h2>Followers</h2>
-      <ul class="profile">
-        <li class="profile" *ngFor="let f of followers" (click)="gotoUser(f.username)">
-          <span class="badge">{{f.username}}</span>
-        </li>
-      </ul>
-    </div>
 
-    <div *ngIf="kweets">
-      <h2>Kweets</h2>
-      <ul>
-        <li *ngFor="let kweet of kweets">{{kweet.message}}</li>
-      </ul>
-    </div>
+    <!--FOLLOWING-->
+    <!--<following></following>-->
+    <router-outlet></router-outlet>
+
+
+    <!--FOLLOWERS-->
+    <!--<followers></followers>-->
+
+    <!--KWEETS-->
+
   </div>
 </div>
 </body>

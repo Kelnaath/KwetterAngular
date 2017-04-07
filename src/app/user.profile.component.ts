@@ -5,7 +5,7 @@
 import {Component, OnInit, Input, ApplicationRef} from "@angular/core";
 import {User} from "./User";
 import {UserService} from "./user.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Kweet} from "./Kweet";
 import {Observable} from "rxjs";
 import {LoginComponent} from "./login.component";
@@ -26,10 +26,10 @@ export class UserProfile implements OnInit{
   canUnfollow : boolean;
   canEdit : boolean;
   followers : User[] = [];
-  following : User[] = [];
+
   kweets : Kweet[] = [];
 
-  constructor(private userService:UserService, private route: ActivatedRoute, private login: AuthService){}
+  constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private login: AuthService){}
 
   ngOnInit(): void {
     this.getUserDetails();
@@ -40,15 +40,9 @@ export class UserProfile implements OnInit{
     this.route.params.subscribe(params => {
       this.userService.getUser(params['username']).subscribe( user =>{
         this.user = user;
-        console.log(this.user);
-        this.userService.getUserList(this.user.following).subscribe( following => this.following = following);
-        this.userService.getUserList(this.user.followers).subscribe(followers => this.followers = followers);
-        this.userService.getUserKweetsList(this.user.id).subscribe(kweets => this.kweets = kweets);
-
         this.canFollow = this.canFollowMethod(this.login.loggedUser.id);
         this.canUnfollow = this.canUnfollowMethod(this.login.loggedUser.id);
         this.canEdit = this.canEditMethod();
-        console.log(this.canEdit);
       })
     });
   }
