@@ -19,7 +19,6 @@ export class KweetComponent implements OnInit {
 
   sub : any;
   kweets : Kweet[];
-  user : User;
 
   constructor(private userService:UserService, private route: ActivatedRoute, private login: AuthService){}
 
@@ -27,12 +26,15 @@ export class KweetComponent implements OnInit {
     this.getKweets();
   }
 
+  getViewedUser(){
+    return this.userService.viewedUser;
+  }
+
   getKweets(){
     this.sub = this.route.parent.params.subscribe(params =>{
       let username = params['username'];
       this.userService.getUser(username).subscribe( user => {
-        this.user = user;
-        this.userService.getUserKweetsList(this.user.id).subscribe( k => this.kweets = k);
+        this.userService.getUserKweetsList(this.userService.viewedUser.id).subscribe( k => this.kweets = k);
       })
     });
 

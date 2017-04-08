@@ -6,59 +6,50 @@
 </head>
 <body>
 <div>
-  <div *ngIf="user">
+  <div *ngIf="getViewedUser()">
     <user-navbar></user-navbar>
 
     <!--PROFILE-->
     <div>
-      <h3>Profile of {{user.username}}</h3>
+      <h3>Profile of {{getViewedUser().username}}</h3>
       <form>
         <div>
           <label for="biography">Biography</label>
-          <input type="text" id="biography" [readonly]="!canEdit" [(ngModel)]="user.profile.bio" name="biography">
+          <input type="text" id="biography" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.bio" name="biography">
         </div>
 
         <div>
           <label for="residence">Residence</label>
-          <input type="text" id="residence" [readonly]="!canEdit" [(ngModel)]="user.profile.residence" name="residence">
+          <input type="text" id="residence" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.residence" name="residence">
         </div>
 
         <div>
           <label for="website">Website</label>
-          <input type="text" id="website" [readonly]="!canEdit" [(ngModel)]="user.profile.website" name="website">
+          <input type="text" id="website" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.website" name="website">
         </div>
 
         <!--NG DIRTY OM AANPAS KNOP TE STYLEN?-->
         <div *ngIf="canEdit">
-          <button type="submit" (click)="updateProfile(user.profile)">Submit changes</button>
+          <button type="submit" (click)="updateProfile(getViewedUser().profile)">Submit changes</button>
         </div>
       </form>
     </div>
 
     <!--FOLLOW/UNFOLLOW-->
     <div *ngIf="canFollow === true">
-      <a (click)="followUser(user)">Follow</a>
+      <a (click)="followUser(getViewedUser())">Follow</a>
     </div>
 
     <div *ngIf="canUnfollow === true">
-      <a (click)="unfollowUser(user)">Unfollow</a>
+      <a (click)="unfollowUser(getViewedUser())">Unfollow</a>
     </div>
 
     <a [routerLink]="['following']">Following</a>
     <a [routerLink]="['followers']">Followers</a>
     <a [routerLink]="['kweets']">Kweets</a>
 
-
-    <!--FOLLOWING-->
-    <!--<following></following>-->
+    <!--ROUTED CHILDREN-->
     <router-outlet></router-outlet>
-
-
-    <!--FOLLOWERS-->
-    <!--<followers></followers>-->
-
-    <!--KWEETS-->
-
   </div>
 </div>
 </body>

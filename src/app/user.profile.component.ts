@@ -21,7 +21,7 @@ import {Profile} from "./Profile";
 
 export class UserProfile implements OnInit{
 
-  user : User;
+  //user : User;
   canFollow : boolean;
   canUnfollow : boolean;
   canEdit : boolean;
@@ -32,23 +32,29 @@ export class UserProfile implements OnInit{
   constructor(private userService:UserService, private route: ActivatedRoute, private router: Router, private login: AuthService){}
 
   ngOnInit(): void {
-    this.getUserDetails();
+    this.route.params.subscribe(params => {
+      let username = params['username'];
+      this.getUserDetails(username);
+    });
+
   }
 
-  getUserDetails(){
+  getUserDetails(username){
     //Get user
-    this.route.params.subscribe(params => {
-      this.userService.getUser(params['username']).subscribe( user =>{
-        this.user = user;
+      this.userService.getUser(username).subscribe( user =>{
+        this.userService.viewedUser = user;
         this.canFollow = this.canFollowMethod(this.login.loggedUser.id);
         this.canUnfollow = this.canUnfollowMethod(this.login.loggedUser.id);
         this.canEdit = this.canEditMethod();
       })
-    });
   }
 
   getLoggedUser(){
     return this.login.loggedUser;
+  }
+
+  getViewedUser(){
+    return this.userService.viewedUser;
   }
 
   gotoUser(username){
@@ -59,11 +65,11 @@ export class UserProfile implements OnInit{
   //ToDo: Dumb method, fix it!
   canFollowMethod(userId : number) : boolean {
     //If user is the same as the logged user.
-    if(userId === this.user.id)
+    if(userId === this.userService.viewedUser.id)
       return false;
 
     //If user is already being followed by user.
-    if (this.user.followers.find( u => u === userId)){
+    if (this.userService.viewedUser.followers.find( u => u === userId)){
       return false;
     }
 
@@ -73,11 +79,11 @@ export class UserProfile implements OnInit{
   //ToDo: For each dumb method i write, God kills a kitten. :(
   canUnfollowMethod(userId : number) : boolean {
     //If user is the same as the logged user.
-    if(userId === this.user.id)
+    if(userId === this.userService.viewedUser.id)
       return false;
 
     //If user is already being followed.
-    if (this.user.followers.find( u => u === userId)){
+    if (this.userService.viewedUser.followers.find( u => u === userId)){
       return true;
     }
 
@@ -88,7 +94,7 @@ export class UserProfile implements OnInit{
     if(!this.login.loggedUser)
       return false;
 
-    if(this.user.id === this.login.loggedUser.id)
+    if(this.userService.viewedUser.id === this.login.loggedUser.id)
       return true;
 
     return false;
@@ -96,19 +102,19 @@ export class UserProfile implements OnInit{
 
   followUser(user : User){
     this.userService.followUser(this.login.loggedUser.id, user.id).subscribe(u =>{
-      this.getUserDetails();
+      this.getUserDetails(user.username);
     })
   }
 
   unfollowUser(user : User){
     this.userService.unfollowUser(this.login.loggedUser.id, user.id).subscribe(u =>{
-      this.getUserDetails();
+      this.getUserDetails(user.username);
     })
   }
 
   updateProfile(profile : Profile){
     this.userService.updateProfile(profile).subscribe( u =>{
-      this.getUserDetails();
+      this.getUserDetails(u.username);
     })
   }
 }

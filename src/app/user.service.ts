@@ -18,6 +18,7 @@ import {Profile} from "./Profile";
 export class UserService{
 
   private baseUrl = 'http://localhost:8080/kwetter/api';
+  public viewedUser : User;
   private loggedIn = false;
   private token : string;
 

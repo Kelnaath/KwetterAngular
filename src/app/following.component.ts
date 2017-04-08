@@ -17,7 +17,6 @@ import {AuthService} from "./auth.service";
 export class Following implements OnInit{
 
   sub : any;
-  user : User;
   following : User[] = [];
 
   constructor(private userService:UserService, private route: ActivatedRoute, private login: AuthService){}
@@ -26,12 +25,15 @@ export class Following implements OnInit{
     this.getFollowing();
   }
 
+  getViewedUser(){
+    return this.userService.viewedUser;
+  }
+
   getFollowing(){
     this.sub = this.route.parent.params.subscribe(params =>{
       let username = params['username'];
       this.userService.getUser(username).subscribe( user => {
-        this.user = user;
-        this.userService.getUserList(this.user.following).subscribe( following => this.following = following);
+        this.userService.getUserList(this.userService.viewedUser.following).subscribe( following => this.following = following);
       })
     });
 
