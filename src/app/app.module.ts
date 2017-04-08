@@ -14,6 +14,7 @@ import {UserProfile} from "./user.profile.component";
 import {Following} from "./following.component";
 import {Followers} from "./followers.component";
 import {KweetComponent} from "./kweets.component";
+import {UserHomeComponent} from "./user-home.component";
 
 export const routes = [
   {path: 'login', component: LoginComponent},
@@ -24,7 +25,8 @@ export const routes = [
     {path: 'followers', component: Followers},
     {path: 'kweets', component: KweetComponent}
     ]
-  }
+  },
+  {path: 'user-home', component: UserHomeComponent}
   //{path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard]}
 ]
 
@@ -36,7 +38,8 @@ export const routes = [
     Following,
     Followers,
     KweetComponent,
-    UserNavbar
+    UserNavbar,
+    UserHomeComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,10 @@
 <div>
   Welcome {{user.username}}!
   <img src={{user.profile.imgUrl}}>
-  <a [routerLink]="['/user-profile', user.username]">Profile</a>
+  <span>
+      <a [routerLink]="['/user-profile', user.username]">Profile</a>
+      <a [routerLink]="['/user-home']">Home</a>
+  </span>
 </div>
 </body>
 </html>

@@ -5,5 +5,5 @@
 export class Kweet{
   id : number;
   message : string;
-  owner : number;
+  ownerId : number;
 }

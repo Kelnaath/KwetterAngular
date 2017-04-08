@@ -6,8 +6,56 @@
 </head>
 <body>
 <user-navbar></user-navbar>
+<div>
+  <!--NEW KWEET-->
+  <div>
+    <form>
+      <div>
+        <label for="kweet">New Kweet:</label>
+        <input type="text" id="kweet" [(ngModel)]="newKweet" name="kweet">
+        <button type="submit" (click)="postNewKweet()">Post kweet</button>
+      </div>
+    </form>
+  </div>
 
-<!--TIMELINE-->
+  <!--TIMELINE-->
+  <div *ngIf="timeline">
+    <h2>Timeline</h2>
+    <ul>
+      <li *ngFor="let kweet of timeline">{{kweet.ownerId}} : {{kweet.message}}</li>
+    </ul>
+  </div>
+
+  <!--FOLLOWING-->
+  <div *ngIf="following">
+    <a [routerLink]="['/user-profile', getLoggedUser().username]">Following:{{following.length}}</a>
+    <ul>
+      <li *ngFor="let user of following">
+        <a [routerLink]="['/user-profile', user.username]">
+          <img src="{{user.profile.imgUrl}}">
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!--FOLLOWERS-->
+  <div *ngIf="followers">
+    <a [routerLink]="['/user-profile', getLoggedUser().username]">Followers:{{followers.length}}</a>
+    <ul>
+      <li *ngFor="let user of followers">
+        <a [routerLink]="['/user-profile', user.username]">
+          <img src="{{user.profile.imgUrl}}">
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!--LOGOUT-->
+  <div>
+    <button type="submit" (click)="logout()">Logout</button>
+  </div>
+</div>
+
 
 </body>
 </html>
