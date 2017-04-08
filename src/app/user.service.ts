@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 import {Kweet} from "./Kweet";
 import {Router} from "@angular/router";
 import {Profile} from "./Profile";
+import {NewUser} from "./NewUser";
 
 
 @Injectable()
@@ -69,6 +70,13 @@ export class UserService{
     let options = new RequestOptions({ headers: headers });
     console.log("post kweet");
     return this.http.post('http://localhost:8080/kwetter/api/kweets', JSON.stringify(kweet), options).map((res:Response) => res.json());
+  }
+
+  registerUser(user : NewUser) : Observable<User>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log("register new user");
+    return this.http.post('http://localhost:8080/kwetter/new/register', JSON.stringify(user), options).map((res:Response) => res.json());
   }
 
   followUser(baseUserId : number, followingId : number) : Observable<User>{

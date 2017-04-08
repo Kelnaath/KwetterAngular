@@ -15,9 +15,14 @@ import {Following} from "./following.component";
 import {Followers} from "./followers.component";
 import {KweetComponent} from "./kweets.component";
 import {UserHomeComponent} from "./user-home.component";
+import {RegisterComponent} from "./register.component";
+import {AdminPanelComponent} from "./admin-panel.component";
+import {AdminService} from "./admin.service";
 
 export const routes = [
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'admin-panel', component: AdminPanelComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'user-profile/:username', component: UserProfile,
   children: [
@@ -39,7 +44,9 @@ export const routes = [
     Followers,
     KweetComponent,
     UserNavbar,
-    UserHomeComponent
+    UserHomeComponent,
+    RegisterComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,7 @@ export const routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthService, LoginComponent],
+  providers: [UserService, AuthService, LoginComponent, AdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

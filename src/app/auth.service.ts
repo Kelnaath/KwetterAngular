@@ -52,4 +52,10 @@ export class AuthService{
   tempLogin(username, password): Observable<User>{
     return this.userService.getUser(username);
   }
+
+  isAdmin() : boolean{
+    if(this.loggedUser.groups.find( group => group.groupName === 'administrator'))
+      return true;
+    return false;
+  }
 }

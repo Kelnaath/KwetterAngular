@@ -11,6 +11,9 @@
   <span>
       <a [routerLink]="['/user-profile', user.username]">Profile</a>
       <a [routerLink]="['/user-home']">Home</a>
+    <div *ngIf="isAdmin()">
+      <a [routerLink]="['/admin-panel']">Admin panel</a>
+    </div>
   </span>
 </div>
 </body>

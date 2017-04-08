@@ -6,10 +6,10 @@
 </head>
 <body>
 <div>
-  <input [(ngModel)]="username" placeholder="username">
-  <input [(ngModel)]="password" placeholder="password">
+  <input type="text" [(ngModel)]="username" placeholder="username">
+  <input type="password" [(ngModel)]="password" placeholder="password">
 </div>
 <button (click)="onSubmit(username, password)">Login</button>
-
+<a [routerLink]="'/register'">or create a new account!</a>
 </body>
 </html>

@@ -22,4 +22,8 @@ export class UserNavbar implements OnInit{
     this.user = this.authService.loggedUser;
   }
 
+  isAdmin() : boolean{
+    return this.authService.isAdmin();
+  }
+
 }
