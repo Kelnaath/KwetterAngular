@@ -7,34 +7,36 @@
 <body>
 <div>
   <user-navbar></user-navbar>
-  <!--USER ADMINISTRATION-->
-  <h3>All Users:</h3>
-  <div *ngIf="users">
-    <ul>
-      <li *ngFor="let user of users">
-        <a [routerLink]="['/user-profile', user.username]">
-          {{user.username}}
-        </a>
-        <div *ngIf="!isAdmin(user)">
-          <button (click)="makeUserAdmin(user.id)">Make Admin</button>
-        </div>
-      </li>
-    </ul>
+  <div class="container">
+    <div class="row">
+      <!--USER ADMINISTRATION-->
+      <div *ngIf="users" class="col-lg-6">
+        <h3>All Users:</h3>
+        <ul class="list-group">
+          <li *ngFor="let user of users" class="list-group-item">
+            <a [routerLink]="['/user-profile', user.username]">
+              {{user.username}}
+            </a>
+            <div *ngIf="!isAdmin(user)">
+              <button (click)="makeUserAdmin(user.id)" class="btn-primary" style="margin-left: 10px">Make Admin</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!--KWEET ADMINISTRATION-->
+      <div *ngIf="kweets" class="col-lg-6">
+        <h3>All Kweets:</h3>
+        <ul class="list-group">
+          <li *ngFor="let kweet of kweets" class="list-group-item">
+            {{kweet.message}}
+            <div>
+              <button (click)="deleteKweet(kweet.id)" class="btn-danger" style="margin-left: 10px">Delete</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <!--KWEET ADMINISTRATION-->
-  <h3>All Kweets:</h3>
-  <div *ngIf="kweets">
-    <ul>
-      <li *ngFor="let kweet of kweets">
-          {{kweet.message}}
-        <div>
-          <button (click)="deleteKweet(kweet.id)">Delete</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
 </div>
 </body>
 </html>

@@ -5,16 +5,30 @@
     <title>Title</title>
 </head>
 <body>
-<div>
-  Welcome {{user.username}}!
-  <img src={{user.profile.imgUrl}}>
-  <span>
-      <a [routerLink]="['/user-profile', user.username]">Profile</a>
-      <a [routerLink]="['/user-home']">Home</a>
-    <div *ngIf="isAdmin()">
-      <a [routerLink]="['/admin-panel']">Admin panel</a>
+    <div class="container" style="margin-top: 25px">
+      <div class="row">
+        <div class="col-lg-12" >
+          <ul class="list-inline" style="text-align: left">
+            <li class="list-inline-item">
+              <a [routerLink]="['/user-profile', user.username]">Profile</a>
+            </li>
+            <li class="list-inline-item">
+              <a [routerLink]="['/user-home']">Home</a>
+            </li>
+            <li class="list-inline-item">
+              <div *ngIf="isAdmin()">
+                <a [routerLink]="['/admin-panel']">Admin panel</a>
+              </div>
+            </li>
+            <li class="list-inline-item">
+              <!--LOGOUT-->
+              <div>
+                <button type="submit" class="btn-primary" style="position: absolute; right: 75px; top: 0px" (click)="logout()">Logout</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </span>
-</div>
 </body>
 </html>

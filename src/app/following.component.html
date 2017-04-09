@@ -8,9 +8,11 @@
 <div *ngIf="getViewedUser()">
   <div *ngIf="getViewedUser().following">
     <h2>Following</h2>
-    <ul class="profile">
-      <li class="profile" *ngFor="let f of following" (click)="gotoUser(f.username)">
-        <span class="badge">{{f.username}}</span>
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let f of following">
+        <a [routerLink]="['/user-profile', f.username]">
+          {{f.username}}
+        </a>
       </li>
     </ul>
   </div>

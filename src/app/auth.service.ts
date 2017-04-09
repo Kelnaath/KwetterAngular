@@ -3,58 +3,60 @@
  */
 
 import {Injectable} from "@angular/core";
-import {Http} from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 import {User} from "./User";
 import {UserService} from "./user.service";
 
 @Injectable()
-export class AuthService{
+export class AuthService {
 
   private baseUrl = 'http://localhost:8080/kwetter/api';
   private loggedIn = false;
-  public loggedUser : User;
-  private token : string;
+  public loggedUser: User;
+  private token: string;
 
-  constructor(private http: Http, private userService: UserService){}
+  constructor(private http: Http, private userService: UserService) {
+  }
 
-  /*
-   login(username, password) {
-   let headers = new Headers();
-   headers.append('Content-Type', 'application/json');
+  authenticate(username, password){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
 
-   return this.http
-   .post('http://localhost:8080/kwetter/new/auth/login/' + username + "/" + password, JSON.stringify({username, password}), {headers})
-   .subscribe(
-   response => {
-   localStorage.setItem('token', response.headers.get('authorization'));
-   this.token = localStorage.getItem('token');
-   console.log(response.headers.get("authorization"));
-   this.loggedIn = true;
-   },
-   error => {
-   alert(error.text());
-   console.log(error.text());
-   }
-   );
-   }
+    return this.http
+      .post('http://localhost:8080/kwetter/new/auth/authenticate/' + username + "/" + password, JSON.stringify({username,password}), options)
+      .map(response => {
+          localStorage.setItem('token', response.headers.get('authorization'));
+          this.token = localStorage.getItem('token');
+          console.log(response.headers.get("authorization"));
+          this.loggedIn = true;
+          console.log(this.loggedIn);
+        return true;
 
-   logout(){
-   localStorage.removeItem('auth_token');
-   this.loggedIn = false;
-   }
+        },
+        error => {
+          alert(error.text());
+          console.log(error.text());
+          return false;
+        }
+      );
+  }
 
-   isLoggedIn(){
-   return this.loggedIn;
-   }
-   */
+  logout() {
+    localStorage.removeItem('auth_token');
+    this.loggedIn = false;
+  }
 
-  tempLogin(username, password): Observable<User>{
+  isLoggedIn() {
+    return this.loggedIn;
+  }
+
+  login(username, password): Observable<User> {
     return this.userService.getUser(username);
   }
 
-  isAdmin() : boolean{
-    if(this.loggedUser.groups.find( group => group.groupName === 'administrator'))
+  isAdmin(): boolean {
+    if (this.loggedUser.groups.find(group => group.groupName === 'administrator'))
       return true;
     return false;
   }

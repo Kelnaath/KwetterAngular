@@ -7,52 +7,52 @@
 <body>
 <user-navbar></user-navbar>
 <div>
-  <!--NEW KWEET-->
-  <div>
-    <form>
-      <div>
-        <label for="kweet">New Kweet:</label>
-        <input type="text" id="kweet" [(ngModel)]="newKweet" name="kweet">
-        <button type="submit" (click)="postNewKweet()">Post kweet</button>
+  <div class="container">
+    <div class="row">
+      <!--NEW KWEET-->
+      <div class="col-lg-6">
+        <form>
+          <div>
+            <textarea maxlength="140" style="resize: none" type="text" id="kweet" rows="5" cols="40" [(ngModel)]="newKweet" name="kweet" placeholder="What's on your mind?"></textarea>
+            <div>
+              <label>{{calculateCharactersLeft()}} characters remaining.</label>
+              <button type="submit" class="btn-primary" (click)="postNewKweet()">Post kweet</button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-
-  <!--TIMELINE-->
-  <div *ngIf="timeline">
-    <h2>Timeline</h2>
-    <ul>
-      <li *ngFor="let kweet of timeline">{{kweet.ownerId}} : {{kweet.message}}</li>
-    </ul>
-  </div>
-
-  <!--FOLLOWING-->
-  <div *ngIf="following">
-    <a [routerLink]="['/user-profile', getLoggedUser().username]">Following:{{following.length}}</a>
-    <ul>
-      <li *ngFor="let user of following">
-        <a [routerLink]="['/user-profile', user.username]">
-          <img src="{{user.profile.imgUrl}}">
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!--FOLLOWERS-->
-  <div *ngIf="followers">
-    <a [routerLink]="['/user-profile', getLoggedUser().username]">Followers:{{followers.length}}</a>
-    <ul>
-      <li *ngFor="let user of followers">
-        <a [routerLink]="['/user-profile', user.username]">
-          <img src="{{user.profile.imgUrl}}">
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!--LOGOUT-->
-  <div>
-    <button type="submit" (click)="logout()">Logout</button>
+      <!--TIMELINE-->
+      <div *ngIf="timeline" class="col-lg-6">
+        <h2>Timeline</h2>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let kweet of timeline">{{kweet.ownerId}} : {{kweet.message}}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <!--FOLLOWING-->
+      <div *ngIf="following" class="col-lg-6">
+        <a [routerLink]="['/user-profile', getLoggedUser().username]">Following:{{following.length}}</a>
+        <ul class="list-inline">
+          <li class="list-inline-item" *ngFor="let user of following">
+            <a [routerLink]="['/user-profile', user.username]">
+              <img style="height: 50px; width: 50px" src="{{user.profile.imgUrl}}">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!--FOLLOWERS-->
+      <div *ngIf="followers" class="col-lg-6">
+        <a [routerLink]="['/user-profile', getLoggedUser().username]">Followers:{{followers.length}}</a>
+        <ul class="list-inline">
+          <li class="list-inline-item" *ngFor="let user of followers">
+            <a [routerLink]="['/user-profile', user.username]">
+              <img style="height: 50px; width: 50px" src="{{user.profile.imgUrl}}">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 

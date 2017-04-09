@@ -7,8 +7,8 @@
 <body>
 <div *ngIf="kweets">
   <h2>Kweets</h2>
-  <ul>
-    <li *ngFor="let kweet of kweets">{{kweet.message}}</li>
+  <ul class="list-group">
+    <li *ngFor="let kweet of kweets" class="list-group-item">{{kweet.message}}</li>
   </ul>
 </div>
 </body>

@@ -6,6 +6,7 @@ import {Component, OnInit} from "@angular/core";
 import {User} from "./User";
 import {UserService} from "./user.service";
 import {AuthService} from "./auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'user-navbar',
@@ -16,7 +17,7 @@ export class UserNavbar implements OnInit{
 
   user : User;
 
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService, private router: Router){}
 
   ngOnInit():void{
     this.user = this.authService.loggedUser;
@@ -26,4 +27,7 @@ export class UserNavbar implements OnInit{
     return this.authService.isAdmin();
   }
 
+  logout(){
+    this.router.navigate(['./authenticate']);
+  }
 }

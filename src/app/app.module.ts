@@ -20,10 +20,10 @@ import {AdminPanelComponent} from "./admin-panel.component";
 import {AdminService} from "./admin.service";
 
 export const routes = [
-  {path: 'login', component: LoginComponent},
+  {path: 'authenticate', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'admin-panel', component: AdminPanelComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/authenticate', pathMatch: 'full'},
   {path: 'user-profile/:username', component: UserProfile,
   children: [
     {path: 'following', component: Following},

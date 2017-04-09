@@ -8,7 +8,7 @@ import {User} from "./User";
 
 
 @Component({
-  selector: 'login',
+  selector: 'authenticate',
   templateUrl: `./login.component.html`
 })
 
@@ -25,9 +25,14 @@ export class LoginComponent {
 
   onSubmit(username, password) {
 
-    this.authService.tempLogin(username, password).subscribe(user =>{
-      this.user = user;
-      this.goToProfile();
+    this.authService.authenticate(username, password).subscribe(auth =>{
+      console.log(auth);
+      if(auth === true){
+        this.authService.login(username, password).subscribe(user => {
+          this.user = user;
+          this.goToProfile();
+        })
+      }
     });
   }
 

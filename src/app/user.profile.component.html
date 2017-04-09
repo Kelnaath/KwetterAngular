@@ -6,50 +6,63 @@
 </head>
 <body>
 <div>
+
   <div *ngIf="getViewedUser()">
     <user-navbar></user-navbar>
-
-    <!--PROFILE-->
-    <div>
-      <h3>Profile of {{getViewedUser().username}}</h3>
-      <form>
-        <div>
-          <label for="biography">Biography</label>
-          <input type="text" id="biography" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.bio" name="biography">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2">
+          <img src="{{getViewedUser().profile.imgUrl}}">
         </div>
+        <!--PROFILE-->
+        <div class="col-lg-6" style="text-align: left">
+          <h3>Profile of {{getViewedUser().username}}</h3>
+          <form>
+            <div>
+              <label for="biography" style="float:left;margin-right:20px; display: block">Biography</label>
+              <textarea type="text" style="resize: none; display: block ; margin-top: 5px" cols="50" rows="4" id="biography" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.bio" name="biography">
+              </textarea>
+            </div>
+            <div>
+              <label for="residence" style="float:left;margin-right:20px; display: block">Residence</label>
+              <input type="text" size="48" style="display: block ; margin-top: 5px" id="residence" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.residence" name="residence">
+            </div>
+            <div>
+              <label for="website" style="float:left;margin-right:35px; display: block">Website</label>
+              <input type="text" size="48" style="display: block ; margin-top: 5px" id="website" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.website" name="website">
+            </div>
 
-        <div>
-          <label for="residence">Residence</label>
-          <input type="text" id="residence" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.residence" name="residence">
+            <!--NG DIRTY OM AANPAS KNOP TE STYLEN?-->
+            <div *ngIf="canEdit">
+              <button class="btn-success" style="margin-top: 5px" type="submit" (click)="updateProfile(getViewedUser().profile)">Update profile</button>
+            </div>
+          </form>
+
+          <!--FOLLOW/UNFOLLOW-->
+          <div *ngIf="canFollow === true">
+            <button class="btn-success" style="margin-top: 5px" (click)="followUser(getViewedUser())">Follow</button>
+          </div>
+
+          <div *ngIf="canUnfollow === true">
+            <button class="btn-danger" style="margin-top: 5px" (click)="unfollowUser(getViewedUser())">Unfollow</button>
+          </div>
         </div>
-
-        <div>
-          <label for="website">Website</label>
-          <input type="text" id="website" [readonly]="!canEdit" [(ngModel)]="getViewedUser().profile.website" name="website">
+        <div class="col-lg-4">
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a [routerLink]="['following']">Following</a>
+            </li>
+            <li class="list-inline-item">
+              <a [routerLink]="['followers']">Followers</a>
+            </li>
+            <li class="list-inline-item">
+              <a [routerLink]="['kweets']">Kweets</a>
+            </li>
+          </ul>
+          <router-outlet></router-outlet>
         </div>
-
-        <!--NG DIRTY OM AANPAS KNOP TE STYLEN?-->
-        <div *ngIf="canEdit">
-          <button type="submit" (click)="updateProfile(getViewedUser().profile)">Submit changes</button>
-        </div>
-      </form>
-    </div>
-
-    <!--FOLLOW/UNFOLLOW-->
-    <div *ngIf="canFollow === true">
-      <a (click)="followUser(getViewedUser())">Follow</a>
-    </div>
-
-    <div *ngIf="canUnfollow === true">
-      <a (click)="unfollowUser(getViewedUser())">Unfollow</a>
-    </div>
-
-    <a [routerLink]="['following']">Following</a>
-    <a [routerLink]="['followers']">Followers</a>
-    <a [routerLink]="['kweets']">Kweets</a>
-
-    <!--ROUTED CHILDREN-->
-    <router-outlet></router-outlet>
+      </div>
+      </div>
   </div>
 </div>
 </body>

@@ -35,6 +35,6 @@ export class RegisterComponent{
   }
 
   redirectToLogin(){
-    this.router.navigate(['./login']);
+    this.router.navigate(['./authenticate']);
   }
 }

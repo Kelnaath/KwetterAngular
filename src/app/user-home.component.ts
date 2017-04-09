@@ -17,12 +17,13 @@ import {User} from "./User";
 
 export class UserHomeComponent implements OnInit{
 
-  newKweet : string;
+  newKweet : string = "";
   timeline : Kweet[];
   following : User[];
   followers : User[];
 
   avatarsToDisplay : number = 5;
+  charactersLeft: number = 140;
 
   constructor(private userService : UserService, private route: ActivatedRoute, private router: Router, private login: AuthService){}
 
@@ -30,7 +31,6 @@ export class UserHomeComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.getUserDetails(this.login.loggedUser.username);
     });
-
   }
 
   getUserDetails(username){
@@ -56,6 +56,7 @@ export class UserHomeComponent implements OnInit{
 
     this.userService.postKweet(kweet).subscribe(kweet =>{
       this.getUserDetails(this.login.loggedUser.username);
+      this.newKweet = "";
     });
   }
 
@@ -66,7 +67,7 @@ export class UserHomeComponent implements OnInit{
       return users;
   }
 
-  logout(){
-    this.router.navigate(['./login']);
+  calculateCharactersLeft() : number{
+    return this.charactersLeft - this.newKweet.length;
   }
 }
