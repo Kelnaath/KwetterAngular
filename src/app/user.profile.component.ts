@@ -36,7 +36,6 @@ export class UserProfile implements OnInit{
       let username = params['username'];
       this.getUserDetails(username);
     });
-
   }
 
   getUserDetails(username){

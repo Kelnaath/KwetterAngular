@@ -65,11 +65,11 @@ export class UserService{
     return this.http.get('http://localhost:8080/kwetter/api/kweets/user/timeline/' + userId, options).map((res:Response) => res.json());
   }
 
-  postKweet(kweet : Kweet) : Observable<Kweet>{
+  postKweet(kweet : Kweet){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("post kweet");
-    return this.http.post('http://localhost:8080/kwetter/api/kweets', JSON.stringify(kweet), options).map((res:Response) => res.json());
+    return this.http.post('http://localhost:8080/kwetter/api/kweets', JSON.stringify(kweet), options);
   }
 
   registerUser(user : NewUser) : Observable<User>{
