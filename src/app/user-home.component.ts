@@ -2,12 +2,14 @@
  * Created by mvdve on 6-4-2017.
  */
 
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {Kweet} from "./Kweet";
 import {UserService} from "./user.service";
 import {AuthService} from "./auth.service";
 import {Router, ActivatedRoute} from "@angular/router";
 import {User} from "./User";
+import {WebsocketService} from "./websocket.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'user-home',
@@ -15,22 +17,34 @@ import {User} from "./User";
   styleUrls:['./user.profile.component.css']
 })
 
-export class UserHomeComponent implements OnInit{
+export class UserHomeComponent implements OnInit, OnDestroy {
 
   newKweet : string = "";
   timeline : Kweet[];
   following : User[];
   followers : User[];
 
+  kweets : Kweet[];
+
   avatarsToDisplay : number = 5;
   charactersLeft: number = 140;
 
-  constructor(private userService : UserService, private route: ActivatedRoute, private router: Router, private login: AuthService){}
+  constructor(private userService : UserService, private route: ActivatedRoute, private login: AuthService){
+
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.getUserDetails(this.login.loggedUser.username);
     });
+
+    this.userService.kweets.subscribe( kweet => {
+      this.kweets.push(kweet);
+    });
+  }
+
+  ngOnDestroy(): void {
+
   }
 
   getUserDetails(username){
@@ -41,6 +55,7 @@ export class UserHomeComponent implements OnInit{
       });
       this.userService.getUserList(user.following).subscribe( following => this.following = this.formatUserlist(following));
       this.userService.getUserList(user.followers).subscribe( followers => this.followers = this.formatUserlist(followers));
+      this.userService.getUserKweetsList(user.id).subscribe( userkweets => this.kweets = userkweets);
     })
   }
 
@@ -65,6 +80,13 @@ export class UserHomeComponent implements OnInit{
       return users.slice(1, this.avatarsToDisplay);
     else
       return users;
+  }
+
+  send(){
+    this.userService.socketKweet(this.newKweet, this.login.loggedUser.id);
+
+    this.postNewKweet();
+
   }
 
   calculateCharactersLeft() : number{

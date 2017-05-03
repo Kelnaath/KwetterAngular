@@ -54,6 +54,21 @@
       </div>
     </div>
   </div>
+  <!--WEBSOCKET KWEETS-->
+  <div>
+    <div *ngIf="kweets">
+      <h2>Websocket timeline</h2>
+      <ul class="list-inline">
+        <li class="list-inline-item" *ngFor="let kweet of kweets">
+          {{kweet.ownerId}} : {{kweet.message}}
+        </li>
+      </ul>
+    </div>
+    <form>
+      <button (click)="send()">Test Websocket plz</button>
+    </form>
+  </div>
+
 </div>
 
 

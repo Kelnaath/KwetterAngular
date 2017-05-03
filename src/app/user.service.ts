@@ -13,18 +13,46 @@ import {Kweet} from "./Kweet";
 import {Router} from "@angular/router";
 import {Profile} from "./Profile";
 import {NewUser} from "./NewUser";
+import {Subject} from "rxjs";
+import {WebsocketService} from "./websocket.service";
+import {AuthService} from "./auth.service";
 
 
 @Injectable()
 export class UserService{
 
-  private baseUrl = 'http://localhost:8080/kwetter/api';
+  private url = "ws://localhost:8080/kwetter/kwetterSocket";
+
   public viewedUser : User;
   private loggedIn = false;
   private token : string;
 
-  constructor(private http: Http, private router: Router){
+  kweets : Subject<Kweet> = new Subject<Kweet>();
+
+  constructor(private http: Http, private router: Router, private wsService : WebsocketService){
     this.loggedIn = !!localStorage.getItem('token');
+  }
+
+  connectToSocket(username : string){
+    this.kweets = <Subject<Kweet>>this.wsService
+      .connect(this.url + '/' + username)
+      .map((response: MessageEvent): Kweet => {
+        let data = JSON.parse(response.data);
+        console.log(data);
+        return {
+          id: data.id,
+          message: data.message,
+          ownerId : data.ownerId
+        }
+      });
+  }
+
+  socketKweet(msg : string, userID : number){
+    let kweet : Kweet = new Kweet();
+    kweet.message = msg;
+    kweet.ownerId = userID;
+    kweet.id = 0;
+    this.kweets.next(kweet);
   }
 
   gotoUser(username){

@@ -18,6 +18,7 @@ import {UserHomeComponent} from "./user-home.component";
 import {RegisterComponent} from "./register.component";
 import {AdminPanelComponent} from "./admin-panel.component";
 import {AdminService} from "./admin.service";
+import {WebsocketService} from "./websocket.service";
 
 export const routes = [
   {path: 'authenticate', component: LoginComponent},
@@ -56,7 +57,7 @@ export const routes = [
     CommonModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthService, LoginComponent, AdminService],
+  providers: [UserService, AuthService, LoginComponent, AdminService, WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

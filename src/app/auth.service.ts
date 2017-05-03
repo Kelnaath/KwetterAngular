@@ -52,6 +52,7 @@ export class AuthService {
   }
 
   login(username, password): Observable<User> {
+    this.userService.connectToSocket(username);
     return this.userService.getUser(username);
   }
 
