@@ -17,6 +17,7 @@
             <div>
               <label>{{calculateCharactersLeft()}} characters remaining.</label>
               <button type="submit" class="btn-primary" (click)="postNewKweet()">Post kweet</button>
+                <button (click)="send()">Send through websocket</button>
             </div>
           </div>
         </form>
@@ -64,9 +65,6 @@
         </li>
       </ul>
     </div>
-    <form>
-      <button (click)="send()">Test Websocket plz</button>
-    </form>
   </div>
 
 </div>

@@ -85,8 +85,7 @@ export class UserHomeComponent implements OnInit, OnDestroy {
   send(){
     this.userService.socketKweet(this.newKweet, this.login.loggedUser.id);
 
-    this.postNewKweet();
-
+    //this.postNewKweet();
   }
 
   calculateCharactersLeft() : number{
