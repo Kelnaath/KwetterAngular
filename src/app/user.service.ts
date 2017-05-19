@@ -36,47 +36,47 @@ export class UserService{
   getUser(username) : Observable<User>{
 
     //return this.http.get(this.baseUrl + '/users' + '/name' + '/admin').map(this.extractData).catch(this.handleError);
-    return this.http.get('http://localhost:8080/kwetter/api/users/name/'+username).map((res:Response) => res.json());
+    return this.http.get('http://localhost:8080/UserService/api/users/name/'+username).map((res:Response) => res.json());
   }
 
   getUserById(id) : Observable<User>{
     //return this.http.get(this.baseUrl + '/users' + '/name' + '/admin').map(this.extractData).catch(this.handleError);
-    return this.http.get('http://localhost:8080/kwetter/api/users/'+id).map((res:Response) => res.json());
+    return this.http.get('http://localhost:8080/UserService/api/users/'+id).map((res:Response) => res.json());
   }
 
   getUserList(userIds : number[]) : Observable<User[]>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("getting userlist");
-    return this.http.put('http://localhost:8080/kwetter/api/users/list', JSON.stringify(userIds), options).map((res:Response) => res.json());
+    return this.http.put('http://localhost:8080/UserService/api/users/list', JSON.stringify(userIds), options).map((res:Response) => res.json());
   }
 
   getUserKweetsList(userId : number) : Observable<Kweet[]>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("getting kweetlist");
-    return this.http.get('http://localhost:8080/kwetter/api/kweets/user/' + userId, options).map((res:Response) => res.json());
+    return this.http.get('http://localhost:8080/KweetService/api/kweets/user/' + userId, options).map((res:Response) => res.json());
   }
 
   getUserTimeline(userId : number) : Observable<Kweet[]>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("getting timeline");
-    return this.http.get('http://localhost:8080/kwetter/api/kweets/user/timeline/' + userId, options).map((res:Response) => res.json());
+    return this.http.get('http://localhost:8080/KweetService/api/kweets/user/timeline/' + userId, options).map((res:Response) => res.json());
   }
 
   postKweet(kweet : Kweet){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("post kweet");
-    return this.http.post('http://localhost:8080/kwetter/api/kweets', JSON.stringify(kweet), options);
+    return this.http.post('http://localhost:8080/KweetService/api/kweets', JSON.stringify(kweet), options);
   }
 
   registerUser(user : NewUser) : Observable<User>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("register new user");
-    return this.http.post('http://localhost:8080/kwetter/new/register', JSON.stringify(user), options).map((res:Response) => res.json());
+    return this.http.post('http://localhost:8080/UserService/api/register', JSON.stringify(user), options).map((res:Response) => res.json());
   }
 
   followUser(baseUserId : number, followingId : number) : Observable<User>{
@@ -97,6 +97,6 @@ export class UserService{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     console.log("updating user profile");
-    return this.http.put('http://localhost:8080/kwetter/api/users/profile/' + profile.owner,JSON.stringify(profile), options).map((res:Response) => res.json());
+    return this.http.put('http://localhost:8080/UserService/api/users/profile/' + profile.owner,JSON.stringify(profile), options).map((res:Response) => res.json());
   }
 }

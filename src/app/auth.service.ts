@@ -24,11 +24,8 @@ export class AuthService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http
-      .post('http://localhost:8080/kwetter/new/auth/authenticate/' + username + "/" + password, JSON.stringify({username,password}), options)
+      .post('http://localhost:8080/AuthService/api/auth/authenticate/' + username + "/" + password, JSON.stringify({username,password}), options)
       .map(response => {
-          localStorage.setItem('token', response.headers.get('authorization'));
-          this.token = localStorage.getItem('token');
-          console.log(response.headers.get("authorization"));
           this.loggedIn = true;
           console.log(this.loggedIn);
         return true;
@@ -43,7 +40,6 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
     this.loggedIn = false;
   }
 
